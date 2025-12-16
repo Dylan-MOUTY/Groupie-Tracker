@@ -10,19 +10,36 @@
 <div class="container">
 <h1>Recherche</h1>
 <form method="get" action="/">
-<input type="search" placeholder="Tapez votre recherche..." name="q" value="{{.Query}}" />
-<button type="submit">Rechercher</button>
+  <input id="searchInput" type="search" placeholder="Tapez votre recherche..." name="q" />
+  <button type="submit">Rechercher</button>
 </form>
-{{if .Query}}
-<p>Résultats pour : <strong>{{.Query}}</strong></p>
-<ul>
-<li>Résultat 1 pour « {{.Query}} »</li>
-<li>Résultat 2 pour « {{.Query}} »</li>
-<li>Résultat 3 pour « {{.Query}} »</li>
-</ul>
-{{else}}
-<p class="muted">Entrez un mot-clé pour lancer la recherche.</p>
-{{end}}
+
+<div id="results">
+  <p id="queryLine" style="display:none">Résultats pour : <strong id="queryText"></strong></p>
+  <ul id="list" style="display:none">
+    <li>Résultat 1 pour « <span class="q"></span> »</li>
+    <li>Résultat 2 pour « <span class="q"></span> »</li>
+    <li>Résultat 3 pour « <span class="q"></span> »</li>
+  </ul>
+  <p id="emptyHint" class="muted">Entrez un mot-clé pour lancer la recherche.</p>
 </div>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const q = params.get('q') || '';
+  const input = document.getElementById('searchInput');
+  input.value = q;
+
+  const hasQuery = q.trim().length > 0;
+  document.getElementById('emptyHint').style.display = hasQuery ? 'none' : 'block';
+  document.getElementById('queryLine').style.display = hasQuery ? 'block' : 'none';
+  document.getElementById('list').style.display = hasQuery ? 'block' : 'none';
+
+  if (hasQuery) {
+    document.getElementById('queryText').textContent = q;
+    document.querySelectorAll('.q').forEach(el => el.textContent = q);
+  }
+</script>
 </body>
 </html>
