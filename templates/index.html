@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Groupie Tracker</title>
+<link rel="stylesheet" href="/static/index.css" />
+</head>
+<body>
+<div class="container">
+<h1>Recherche</h1>
+<form method="get" action="/">
+<input type="search" placeholder="Tapez votre recherche..." name="q" value="{{.Query}}" />
+<button type="submit">Rechercher</button>
+</form>
+{{if .Query}}
+<p>Résultats pour : <strong>{{.Query}}</strong></p>
+<ul>
+<li>Résultat 1 pour « {{.Query}} »</li>
+<li>Résultat 2 pour « {{.Query}} »</li>
+<li>Résultat 3 pour « {{.Query}} »</li>
+</ul>
+{{else}}
+<p class="muted">Entrez un mot-clé pour lancer la recherche.</p>
+{{end}}
+</div>
+</body>
+</html>
